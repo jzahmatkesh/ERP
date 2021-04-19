@@ -9,5 +9,10 @@ class Field<T>{
   Field({required this.fieldName, required this.fieldLabel, required this.value});
 
   Widget toLabel()=>Text('${this.value}');
-  Widget toEdit({bool expanded=false})=>EditBox(label: this.fieldLabel, onChange: (val)=>this.value=T is int ? int.tryParse(val) : T is String ? val : );
+  Widget toEdit({bool expanded=false})=>EditBox(
+    label: this.fieldLabel, 
+    onChange: (val)=>this.value=val as T,
+    type: T is int ? EditType.Number : EditType.Text,
+    defaultvalue: value as String,
+  );
 }
