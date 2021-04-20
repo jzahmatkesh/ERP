@@ -1,7 +1,8 @@
 {
-    "login": "oturum aç",
+    "login": "Oturum aç",
     "welcome": "Hoşgeldiniz",
     "username": "Kullanıcı adı",
-    "password": "parola",
-    "forgot password": "Parolanızı mı unuttunuz"
+    "password": "Parola",
+    "forgot password": "Parolanızı mı unuttunuz",
+    "required": "Bu alan gereklidir"
 }

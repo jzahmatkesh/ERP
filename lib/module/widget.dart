@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -68,16 +69,21 @@ class EditBox extends StatelessWidget {
   final TextEditingController? controller;
   final EditType type;
   final int? maxLength;
+  final bool notEmpty;
 
   EditBox(
-      {required this.label,
+    {
+      required this.label,
       this.defaultvalue,
       this.expanded = false,
       this.password = false,
       this.onChange,
       this.controller,
       this.type = EditType.Text,
-      this.maxLength});
+      this.maxLength,
+      this.notEmpty = false
+    }
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +102,10 @@ class EditBox extends StatelessWidget {
       obscureText: this.password,
       onChanged: this.onChange,
       maxLength: this.type == EditType.Date ? 10 : this.maxLength,
+      validator: (String? val){
+        if (this.notEmpty && (val == null || val.isEmpty))
+          return "required".tr();
+      },
       keyboardType: [EditType.Money, EditType.Number].contains(this.type)
           ? TextInputType.number
           : TextInputType.text,
@@ -164,15 +174,36 @@ class TxtButton extends StatelessWidget {
 class IButton extends StatelessWidget {
   
   final String? hint;
-  final Icon icon;
+  final Icon? icon;
+  final String? asseimage;
   final void Function() onPressed;
 
-  IButton({required this.icon, this.hint, required this.onPressed});
+  IButton({this.icon, this.hint, required this.onPressed, this.asseimage});
 
   @override
   Widget build(BuildContext context) {
-    return this.hint==null
-      ? IconButton(icon: this.icon, onPressed: this.onPressed)
-      : Tooltip(message: this.hint!, child: IconButton(icon: this.icon, onPressed: this.onPressed));
+    return 
+      this.asseimage == null 
+        ? this.hint==null
+          ? IconButton(icon: this.icon!, onPressed: this.onPressed)
+          : Tooltip(message: this.hint!, child: IconButton(icon: this.icon!, onPressed: this.onPressed))
+        : this.hint==null
+          ? InkWell(
+              child: CircleAvatar(
+                radius: 15,
+                backgroundImage: AssetImage('$asseimage')
+              ), 
+              onTap: this.onPressed
+            )
+          : Tooltip(
+              message: this.hint!, 
+              child: InkWell(
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundImage: AssetImage('$asseimage')
+                ), 
+                onTap: this.onPressed
+              )
+            );
   }
 }

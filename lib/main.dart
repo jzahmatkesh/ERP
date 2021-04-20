@@ -46,6 +46,22 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
+    final _formkey = GlobalKey<FormState>();
+
+    List<Widget> footer(BuildContext context){
+      return [
+        Button(
+          caption: 'login'.tr(),
+          icon: Icon(Icons.lock_outline),
+          onPressed: () {if (_formkey.currentState!.validate()) print("yes"); else print("no");}
+        ),
+        TxtButton(
+          onPressed: (){},
+          caption: '${'forgot password'.tr()}?'
+        )
+      ];
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -110,30 +126,42 @@ class MyHomePage extends StatelessWidget {
                     ),
                     child: Container(
                       padding: EdgeInsets.all(18),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            child: Row(
-                              children: [
-                                SizedBox(width: 65, child: ListTile(title: CircleAvatar(radius: 12,backgroundImage: AssetImage('images/English.png')), onTap: () async => await context.setLocale(context.supportedLocales[0]))),
-                                SizedBox(width: 65, child: ListTile(title: CircleAvatar(radius: 12,backgroundImage: AssetImage('images/Turkey.png')), onTap: () async => await context.setLocale(context.supportedLocales[1]))),
-                              ],
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              child: Row(
+                                children: [
+                                  IButton(
+                                    hint: 'English',
+                                    asseimage: 'images/English.png',
+                                    onPressed: () async => await context.setLocale(context.supportedLocales[0])
+                                  ),
+                                  SizedBox(width: 3),
+                                  IButton(
+                                    hint: 'Türkçe',
+                                    asseimage: 'images/Turkey.png',
+                                    onPressed: () async => await context.setLocale(context.supportedLocales[1])
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                NetworkImage('http://i.imgur.com/ryybk8P.jpg'),
-                          ),
-                          SizedBox(height: 35),
-                          EditBox(label: 'username'.tr()),
-                          EditBox(label: 'password'.tr(), password: true),
-                          SizedBox(height: 25),
-                          screenWidth(context) > 1365
-                            ? Row(children: footer(context))
-                            : Column(children: footer(context))
-                        ],
+                            CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  NetworkImage('http://i.imgur.com/ryybk8P.jpg'),
+                            ),
+                            SizedBox(height: 35),
+                            EditBox(label: 'username'.tr(), notEmpty: true),
+                            EditBox(label: 'password'.tr(), notEmpty: true, password: true),
+                            SizedBox(height: 25),
+                            screenWidth(context) > 1365
+                              ? Row(children: footer(context))
+                              : Column(children: footer(context))
+                          ],
+                        ),
                       ),
                     )
                   )
@@ -145,19 +173,5 @@ class MyHomePage extends StatelessWidget {
         )
       ),
     );
-  }
-
-  List<Widget> footer(BuildContext context){
-    return [
-      Button(
-        caption: 'login'.tr(),
-        icon: Icon(Icons.lock_outline),
-        onPressed: () {}
-      ),
-      TxtButton(
-        onPressed: (){},
-        caption: '${'forgot password'.tr()}?'
-      )
-    ];
   }
 }

@@ -1,8 +1,9 @@
 {
-    "login": "login",
-    "welcome": "welcome",
-    "username": "username",
-    "password": "passwod",
-    "forgot password": "forgot password",
+    "login": "Login",
+    "welcome": "Welcome",
+    "username": "Username",
+    "password": "Passwod",
+    "forgot password": "Forgot password",
+    "required": "This field is required",
     "": ""
 }
