@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:erpui/module/consts.dart';
 import 'package:erpui/module/widget.dart';
 import 'package:erpui/provider/mainProvider.dart';
@@ -6,13 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_)=>MainProvider())
       ],
-      child: MyApp(),
+      child: EasyLocalization(
+        child: MyApp(), 
+        supportedLocales: [Locale('en', 'US'), Locale('tr', 'TR')], 
+        fallbackLocale: Locale('en', 'US'),
+        path: 'lang'
+      )
     )
   );
 }
@@ -24,6 +32,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -69,7 +80,7 @@ class MyHomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          'welcome',
+                          'welcome'.tr(),
                           style: TextStyle(
                             fontFamily: 'pacifico',
                             fontSize: 78, 
@@ -102,18 +113,26 @@ class MyHomePage extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Container(
+                            child: Row(
+                              children: [
+                                SizedBox(width: 65, child: ListTile(title: CircleAvatar(radius: 12,backgroundImage: AssetImage('images/English.png')), onTap: () async => await context.setLocale(context.supportedLocales[0]))),
+                                SizedBox(width: 65, child: ListTile(title: CircleAvatar(radius: 12,backgroundImage: AssetImage('images/Turkey.png')), onTap: () async => await context.setLocale(context.supportedLocales[1]))),
+                              ],
+                            ),
+                          ),
                           CircleAvatar(
                             radius: 50,
                             backgroundImage:
                                 NetworkImage('http://i.imgur.com/ryybk8P.jpg'),
                           ),
                           SizedBox(height: 35),
-                          EditBox(label: 'username'),
-                          EditBox(label: 'password', password: true),
+                          EditBox(label: 'username'.tr()),
+                          EditBox(label: 'password'.tr(), password: true),
                           SizedBox(height: 25),
                           screenWidth(context) > 1365
-                            ? Row(children: footer())
-                            : Column(children: footer())
+                            ? Row(children: footer(context))
+                            : Column(children: footer(context))
                         ],
                       ),
                     )
@@ -128,16 +147,16 @@ class MyHomePage extends StatelessWidget {
     );
   }
 
-  List<Widget> footer(){
+  List<Widget> footer(BuildContext context){
     return [
       Button(
-        caption: 'Login',
+        caption: 'login'.tr(),
         icon: Icon(Icons.lock_outline),
         onPressed: () {}
       ),
       TxtButton(
-        onPressed: () {},
-        caption: 'forgot password?'
+        onPressed: (){},
+        caption: '${'forgot password'.tr()}?'
       )
     ];
   }

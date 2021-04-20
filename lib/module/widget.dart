@@ -161,3 +161,18 @@ class TxtButton extends StatelessWidget {
   }
 }
 
+class IButton extends StatelessWidget {
+  
+  final String? hint;
+  final Icon icon;
+  final void Function() onPressed;
+
+  IButton({required this.icon, this.hint, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return this.hint==null
+      ? IconButton(icon: this.icon, onPressed: this.onPressed)
+      : Tooltip(message: this.hint!, child: IconButton(icon: this.icon, onPressed: this.onPressed));
+  }
+}
