@@ -26,6 +26,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   easy_localization: ^3.0.0
   provider: ^5.0.0
+  awesome_dialog: ^2.0.0-nullsafety.1
 
 dev_dependencies:
   flutter_test:

@@ -4,5 +4,10 @@
     "username": "Kullanıcı adı",
     "password": "Parola",
     "forgot password": "Parolanızı mı unuttunuz",
-    "required": "Bu alan gereklidir"
+    "required": "Bu alan gereklidir",
+    "ok": "Tamam",
+    "cancel": "iptal",
+    "msg": {
+        "areyousure": "Emin misiniz?"
+    }
 }

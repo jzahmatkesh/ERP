@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:erpui/module/consts.dart';
+import 'package:erpui/module/functions.dart';
 import 'package:erpui/module/widget.dart';
 import 'package:erpui/provider/mainProvider.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,7 +57,7 @@ class MyHomePage extends StatelessWidget {
           onPressed: () {if (_formkey.currentState!.validate()) print("yes"); else print("no");}
         ),
         TxtButton(
-          onPressed: (){},
+          onPressed: ()=>showMessage(context: context, msg: 'msg.areyousure'.tr()),
           caption: '${'forgot password'.tr()}?'
         )
       ];

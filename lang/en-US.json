@@ -5,5 +5,9 @@
     "password": "Passwod",
     "forgot password": "Forgot password",
     "required": "This field is required",
-    "": ""
+    "ok": "ok",
+    "cancel": "cancel",
+    "msg": {
+        "areyousure": "are you sure?"
+    }
 }
