@@ -158,7 +158,7 @@ class Login extends StatelessWidget {
                             CircleAvatar(
                               radius: 50,
                               backgroundImage:
-                                  NetworkImage('http://i.imgur.com/ryybk8P.jpg'),
+                                  AssetImage('images/user.jpg'),
                             ),
                             SizedBox(height: 35),
                             EditBox(label: 'username'.tr(), notEmpty: true, onChange: (val)=>_data['username']=val),
