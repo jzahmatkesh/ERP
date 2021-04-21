@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:erpui/form/Dashboard.dart';
 import 'package:erpui/module/consts.dart';
 import 'package:erpui/module/functions.dart';
 import 'package:erpui/module/widget.dart';
@@ -39,23 +40,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: context.watch<MainProvider>().user == null
+        ? Login()
+        : Dashboard()
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     final _formkey = GlobalKey<FormState>();
+    Map<String, String> _data = {'username': '', 'password': ''};
 
     List<Widget> footer(BuildContext context){
       return [
-        Button(
-          caption: 'login'.tr(),
-          icon: Icon(Icons.lock_outline),
-          onPressed: () {if (_formkey.currentState!.validate()) print("yes"); else print("no");}
-        ),
+        context.watch<MainProvider>().status == UserStatus.Loading
+          ? SizedBox(width: 100, child: CupertinoActivityIndicator())
+          : Button(
+              caption: 'login'.tr(),
+              icon: Icon(Icons.lock_outline),
+              onPressed: ()=>context.read<MainProvider>().authenticate(_data['username']!, _data['password']!)
+            ),
         TxtButton(
           onPressed: ()=>showMessage(context: context, msg: 'msg.areyousure'.tr()),
           caption: '${'forgot password'.tr()}?'
@@ -106,13 +112,13 @@ class MyHomePage extends StatelessWidget {
                         ),
                         Container(
                           height: screenHeight(context) * 0.7,
-                          width: screenWidth(context) * 0.3,
+                          width: screenWidth(context) * 0.3,                         
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage('images/background.png'),
                                 fit: BoxFit.cover),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ))
@@ -155,9 +161,21 @@ class MyHomePage extends StatelessWidget {
                                   NetworkImage('http://i.imgur.com/ryybk8P.jpg'),
                             ),
                             SizedBox(height: 35),
-                            EditBox(label: 'username'.tr(), notEmpty: true),
-                            EditBox(label: 'password'.tr(), notEmpty: true, password: true),
+                            EditBox(label: 'username'.tr(), notEmpty: true, onChange: (val)=>_data['username']=val),
+                            EditBox(label: 'password'.tr(), notEmpty: true, password: true, onChange: (val)=>_data['password']=val),
                             SizedBox(height: 25),
+                            context.watch<MainProvider>().status == UserStatus.Failed
+                              ? Container(
+                                width: double.infinity,
+                                margin: EdgeInsets.only(bottom: 10),
+                                decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(12)
+                                ),
+                                padding: EdgeInsets.all(12),
+                                child: Label('${context.read<MainProvider>().errMsg}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                              )
+                              : Container(),
                             screenWidth(context) > 1365
                               ? Row(children: footer(context))
                               : Column(children: footer(context))

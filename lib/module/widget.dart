@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:erpui/class/BaseClass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -207,3 +208,50 @@ class IButton extends StatelessWidget {
             );
   }
 }
+
+class Label extends StatelessWidget {
+  final String text;
+  final TextStyle? style;
+
+  Label(this.text, {this.style});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(4),
+      child: Text('${this.text}', style: this.style),
+    );
+  }
+}
+
+class MultiItem extends StatelessWidget {
+  final int value;
+  final List<Map<String, dynamic>> options;
+  final Function(int)? onChange;
+
+  MultiItem({required this.value, required this.options, this.onChange});
+
+  @override
+  Widget build(BuildContext context) {
+    Bloc<int> _mlt = Bloc<int>()..setValue(this.value);
+    return StreamBuilder<int>(
+      stream: _mlt.stream$,
+      builder: (context, snap) {
+        return DropdownButton<int>(
+          value: snap.data,
+          items: this.options.map<DropdownMenuItem<int>>((e) => DropdownMenuItem(value: e['id'],child: Text('${e['name']}'))).toList(),
+          onChanged: (val){
+            print('drop: $val');
+            _mlt.setValue(val!);
+            if (this.onChange != null)
+              this.onChange!(val);
+          },
+        );
+      }
+    );
+  }
+}
+
+
+
+

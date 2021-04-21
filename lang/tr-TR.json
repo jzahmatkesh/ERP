@@ -8,6 +8,15 @@
     "ok": "Tamam",
     "cancel": "iptal",
     "msg": {
-        "areyousure": "Emin misiniz?"
+        "areyousure": "Emin misiniz?",
+        "wrongpassword": "Kullanıcı ismi veya parola yanlış"
+    },
+    "field":{
+        "id": "İD",
+        "family": "aile",
+        "mobile": "seyyar",
+        "email": "e-posta",
+        "lastlogin": "son giriş",
+        "married": "evli"
     }
 }

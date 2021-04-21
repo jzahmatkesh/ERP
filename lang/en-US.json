@@ -8,6 +8,15 @@
     "ok": "ok",
     "cancel": "cancel",
     "msg": {
-        "areyousure": "are you sure?"
+        "areyousure": "are you sure?",
+        "wrongpassword": "username or password is wrong"
+    },
+    "field":{
+        "id": "id",
+        "family": "family",
+        "mobile": "mobile",
+        "email": "email",
+        "lastlogin": "last login",
+        "married": "married"
     }
 }
