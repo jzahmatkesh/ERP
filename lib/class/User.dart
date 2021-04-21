@@ -1,4 +1,4 @@
-import 'package:erpui/class/BaseClass.dart';
+import 'BaseClass.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class User extends Entity{

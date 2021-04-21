@@ -7,6 +7,12 @@
     "required": "This field is required",
     "ok": "ok",
     "cancel": "cancel",
+    "vema Textile": "Vema Textile",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "fabric": "Fabric",
+    "order": "Order",
+    "production": "Production",
     "msg": {
         "areyousure": "are you sure?",
         "wrongpassword": "username or password is wrong"

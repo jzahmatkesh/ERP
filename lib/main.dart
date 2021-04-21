@@ -1,12 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:erpui/form/Dashboard.dart';
-import 'package:erpui/module/consts.dart';
-import 'package:erpui/module/functions.dart';
-import 'package:erpui/module/widget.dart';
-import 'package:erpui/provider/mainProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'form/Dashboard.dart';
+import 'module/consts.dart';
+import 'module/functions.dart';
+import 'module/widget.dart';
+import 'provider/mainProvider.dart';
 
 
 void main() async{
@@ -37,9 +38,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: context.watch<MainProvider>().theme,
       home: context.watch<MainProvider>().user == null
         ? Login()
         : Dashboard()
@@ -70,7 +69,6 @@ class Login extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           decoration: screenWidth(context) > 1024
@@ -89,12 +87,19 @@ class Login extends StatelessWidget {
                     // color: Colors.blue.shade900,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.blue.shade200,
-                          Colors.blue.shade400,
-                          Colors.blue.shade700,
-                          Colors.blue.shade900,
-                        ],
+                        colors: isDark(context)
+                          ? [
+                              Colors.blueGrey.shade200,
+                              Colors.blueGrey.shade400,
+                              Colors.blueGrey.shade700,
+                              Colors.blueGrey.shade900,
+                            ]
+                          : [
+                              Colors.blue.shade200,
+                              Colors.blue.shade400,
+                              Colors.blue.shade700,
+                              Colors.blue.shade900,
+                            ],
                         begin: Alignment.topRight,
                         end: Alignment.bottomLeft,
                       )
@@ -152,6 +157,11 @@ class Login extends StatelessWidget {
                                     asseimage: 'images/Turkey.png',
                                     onPressed: () async => await context.setLocale(context.supportedLocales[1])
                                   ),
+                                  Spacer(),
+                                  Switch(
+                                    value: isDark(context), 
+                                    onChanged: (val)=>context.read<MainProvider>().setTheme(val ? ThemeData.dark() : ThemeData.light())
+                                  )
                                 ],
                               ),
                             ),

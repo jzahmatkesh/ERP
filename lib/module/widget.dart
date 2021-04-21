@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:erpui/class/BaseClass.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../class/BaseClass.dart';
 
 enum EditType { Text, Number, Money, Date }
 
@@ -252,6 +253,84 @@ class MultiItem extends StatelessWidget {
   }
 }
 
+class SubMenuItem extends StatelessWidget {
+  final Icon icon;
+  final String caption;
+  final Function() onPressed;
+
+  SubMenuItem({required this.icon, required this.caption, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: this.onPressed,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        height: 45,
+        child: Stack(
+          children: [
+            Positioned(
+              left: 5,
+              child: Container(
+                height: 45,
+                width: 2,
+                decoration: BoxDecoration(
+                  border: Border(left: BorderSide())
+                ),
+              ),
+            ),
+            Positioned(
+              left: 1,
+              top: 18,
+              child: CircleAvatar(backgroundColor: Colors.grey, radius: 5,)
+            ),
+            Positioned(
+              left: 18,
+              top: 12,
+              child: this.icon
+            ),
+            Positioned(
+              left: 55,
+              top: 16,
+              child: Text('$caption'.tr())
+            )
+          ]
+        ),
+        ),
+    );
+  }
+}
+
+class MenuItem extends StatelessWidget {
+  final bool selected;
+  final String caption;
+  final Function() onPressed;
+  final Icon icon;
+
+  MenuItem({required this.caption, required this.icon ,required this.selected, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: this.onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            this.icon,
+            SizedBox(width: 5),
+            Label('$caption'.tr()),
+            Spacer(),
+            this.selected
+              ? Icon(Icons.arrow_drop_up)
+              : Icon(Icons.arrow_drop_down),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 
 

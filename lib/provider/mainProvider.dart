@@ -1,4 +1,4 @@
-import 'package:erpui/class/User.dart';
+import '../class/User.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -8,6 +8,8 @@ class MainProvider extends ChangeNotifier{
   User? user;
   UserStatus status = UserStatus.Initiale;
   String? errMsg;
+
+  ThemeData theme = ThemeData.light();
 
   authenticate(String username, String password) async{
     try{
@@ -30,5 +32,10 @@ class MainProvider extends ChangeNotifier{
       status = UserStatus.Failed;
       notifyListeners();
     }
+  }
+
+  setTheme(ThemeData thm){
+    theme = thm;
+    notifyListeners();
   }
 }

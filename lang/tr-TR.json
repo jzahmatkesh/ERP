@@ -7,6 +7,12 @@
     "required": "Bu alan gereklidir",
     "ok": "Tamam",
     "cancel": "iptal",
+    "vema Textile": "Vema Textile",
+    "home": "Home",
+    "dashboard": "Gösterge Paneli",
+    "fabric": "kumaş",
+    "order": "sipariş",
+    "production": "üretim",
     "msg": {
         "areyousure": "Emin misiniz?",
         "wrongpassword": "Kullanıcı ismi veya parola yanlış"

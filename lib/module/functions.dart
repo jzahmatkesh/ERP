@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 void showMessage({required BuildContext context, required String msg, DialogType type = DialogType.INFO, Function? okPress, Function? cancelPress}){
