@@ -137,11 +137,12 @@ class Login extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     child: Container(
+                      height: 435,
                       padding: EdgeInsets.all(18),
                       child: Form(
                         key: _formkey,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                        child: ListView(
+                          // mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
                               child: Row(
@@ -167,8 +168,9 @@ class Login extends StatelessWidget {
                             ),
                             CircleAvatar(
                               radius: 50,
-                              backgroundImage:
-                                  AssetImage('images/user.jpg'),
+                              child: ClipOval(
+                                child: Image.asset('images/user.jpg', fit: BoxFit.cover),
+                              ),
                             ),
                             SizedBox(height: 35),
                             EditBox(label: 'username'.tr(), notEmpty: true, onChange: (val)=>_data['username']=val),
