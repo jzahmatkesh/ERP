@@ -38,7 +38,7 @@ class Dashboard extends StatelessWidget {
                         MenuItem(caption: 'Home', icon: Icon(Icons.home_outlined), selected: true, onPressed: (){}),
                         SubMenuItem(icon: Icon(Icons.home_outlined), caption: 'Dashboard', onPressed: (){}),
                         SubMenuItem(icon: Icon(Icons.recent_actors_rounded), caption: 'put test data', onPressed: (){}),
-                        MenuItem(caption: 'fabric', icon: Icon(CupertinoIcons.doc_plaintext), selected: false, onPressed: (){}),
+                        MenuItem(caption: 'Fabric', icon: Icon(CupertinoIcons.doc_plaintext), selected: false, onPressed: (){}),
                         MenuItem(caption: 'Order', icon: Icon(CupertinoIcons.device_desktop), selected: false, onPressed: (){}),
                         MenuItem(caption: 'Production', icon: Icon(CupertinoIcons.rectangle_3_offgrid), selected: false, onPressed: (){}),
                       ],
