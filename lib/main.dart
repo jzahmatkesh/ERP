@@ -130,7 +130,11 @@ class Login extends StatelessWidget {
                 : Container(width: screenWidth(context) * 0.1),
               Expanded(
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: screenWidth(context) <= 1115 && screenWidth(context) > 1024 ? screenWidth(context) * 0.05 : screenWidth(context) * 0.1),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: screenWidth(context) <= 1115 && screenWidth(context) > 1024 
+                        ? screenWidth(context) * 0.05 
+                        : screenWidth(context) * 0.1
+                      ),
                   child: Card(
                     elevation: 11,
                     shape: RoundedRectangleBorder(

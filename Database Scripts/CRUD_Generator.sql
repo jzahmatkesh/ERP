@@ -16,6 +16,44 @@ Begin
 		@InsertFld NVarChar(max)
 	Declare @Res Table(note NVarChar(max))
 
+	--Creating Foreign Key Exists
+	Declare @FSql NVarChar(max), @FTMP NVARCHAR(100), @FTB NVARCHAR(100), @FColumn NVarChar(500)
+	Declare @ForeignKey Table(Msg NvarChar(max))
+
+	Declare Crs Cursor For
+		select SCHEMA_NAME(t.schema_id)+'.'+t.name as TableWithForeignKey, c.name+' = @'+d.name as ParentKeyColumn
+		from sys.foreign_key_columns as fk
+			inner join sys.tables as t on fk.referenced_object_id = t.object_id
+			inner join  sys.columns as c on fk.referenced_object_id = c.object_id and fk.referenced_column_id = c.column_id
+			inner join  sys.columns as D on fk.parent_object_id = d.object_id and fk.parent_column_id = d.column_id
+		where  fk.parent_object_id = object_id(@Schema+'.'+@TBName)
+		order by  TableWithForeignKey, fk.constraint_column_id
+
+	Open Crs
+	Fetch next From Crs Into @FTB, @FColumn
+
+	Set @FTMP = ''
+
+	While @@FETCH_STATUS = 0
+	BEGIN
+	--Select 'asas' Msg, @TMP, @TB, @Column, @Sql
+		if @FTMP <> @FTB
+		BEGIN
+			if Trim(@FSql) <> ''
+				Insert Into @ForeignKey Values(@FSql+')'),('		Throw 50002, ''foreign key on table '+@FTB+' not valid '', 1')
+			Set @FTMP = @FTB
+			Set @FSql = '	If  Not Exists(Select * From '+@FTB+' Where '+@FColumn
+		End
+		ELSE
+			Set @FSql = @FSql+' And '+@FColumn
+		Fetch next From Crs Into @FTB, @FColumn
+	End
+	if Trim(@FSql) <> ''
+		Insert Into @ForeignKey Values(@FSql+')'),('		Throw 50002, ''foreign key on table '+@FTB+' not valid '', 1')
+
+	Close Crs
+	DeAllocate Crs
+	--end of foreign key Exists 
 
 	Declare CrsPk Cursor For
 		Select b.name
@@ -105,6 +143,10 @@ Begin
 	Insert Into @Res Select '		Throw 50000, ''You session expired, please login again'', 1'
 	Insert Into @Res Select '	if Not Exists(Select * From Erp.FnUserPermission(@Token, '''+@UPermission+'''))'
 	Insert Into @Res Select '		Throw 50001, ''You dont have permission'', 1'
+	if Exists(Select * From @ForeignKey)
+		Insert Into @Res
+		Select *
+		From @ForeignKey
 	Insert Into @Res Select '	if Exists(Select * From '+@Schema+'.'+@TBName+' Where '+@PKUpdate+')'
 	Insert Into @Res Select '		Update '+@schema+'.'+@TBName
 	Insert Into @Res Select '		Set '+@UFld
@@ -140,5 +182,6 @@ Begin
 
 	Select *
 	From @Res
+
 End
 Go
