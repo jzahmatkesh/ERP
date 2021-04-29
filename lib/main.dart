@@ -107,14 +107,7 @@ class Login extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          'welcome'.tr(),
-                          style: TextStyle(
-                            fontFamily: 'pacifico',
-                            fontSize: 78, 
-                            color: Colors.white70
-                          ),
-                        ),
+                        Label('welcome'.tr()).isBold().fontSize(78).fontFamily('pacifico').fontColor(Colors.white70),
                         Container(
                           height: screenHeight(context) * 0.7,
                           width: screenWidth(context) * 0.3,                         
@@ -189,7 +182,7 @@ class Login extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(12)
                                 ),
                                 padding: EdgeInsets.all(12),
-                                child: Label('${context.read<MainProvider>().errMsg}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                child: Label('${context.read<MainProvider>().errMsg}').isBold().fontColor(Colors.white),
                               )
                               : Container(),
                             screenWidth(context) > 1365
