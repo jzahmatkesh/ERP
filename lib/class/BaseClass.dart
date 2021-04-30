@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../module/widget.dart';
 
 abstract class Entity{
   bool edit=false;
@@ -19,36 +16,36 @@ class Bloc<T>{
   setValue(T value) => _bloc.add(value);
 }
 
-class Field<T>{
-  final String fieldName;
-  final String fieldLabel;
-  T value;
-  final List<Map<String, dynamic>>? options;
+// class Field<T>{
+//   final String fieldName;
+//   final String fieldLabel;
+//   T value;
+//   final List<Map<String, dynamic>>? options;
 
-  Field({required this.fieldName, required this.fieldLabel, required this.value, this.options});
+//   Field({required this.fieldName, required this.fieldLabel, required this.value, this.options});
 
-  Widget toLabel({bool expanded=false}){
-    if (expanded)
-      return Expanded(child: Label('${this.value}'));
-    return Label('${this.value}');
-  }
+//   Widget toLabel({bool expanded=false}){
+//     if (expanded)
+//       return Expanded(child: Label('${this.value}'));
+//     return Label('${this.value}');
+//   }
   
-  Widget toEdit({bool expanded=false}){
-    Widget editBox(){
-      return EditBox(label: this.fieldLabel, 
-        onChange: (val)=>this.value=val as T,
-        type: T is int ? EditType.Number : EditType.Text,
-        defaultvalue: value as String,
-      );
-    }
-    if (expanded)
-      return Expanded(child: editBox());
-    return editBox();
-  }
+//   Widget toEdit({bool expanded=false}){
+//     Widget editBox(){
+//       return EditBox(label: this.fieldLabel, 
+//         onChange: (val)=>this.value=val as T,
+//         type: T is int ? EditType.Number : EditType.Text,
+//         defaultvalue: value as String,
+//       );
+//     }
+//     if (expanded)
+//       return Expanded(child: editBox());
+//     return editBox();
+//   }
 
-  Widget toMultiChoose({bool expanded=false}){
-    if (expanded)
-      return Expanded(child: MultiItem(value: this.value as int, options: this.options!, onChange: (val)=>this.value = val as T));
-    return MultiItem(value: this.value as int, options: this.options!, onChange: (val)=>this.value = val as T);
-  }
-}
+//   Widget toMultiChoose({bool expanded=false}){
+//     if (expanded)
+//       return Expanded(child: MultiItem(value: this.value as int, options: this.options!, onChange: (val)=>this.value = val as T));
+//     return MultiItem(value: this.value as int, options: this.options!, onChange: (val)=>this.value = val as T);
+//   }
+// }

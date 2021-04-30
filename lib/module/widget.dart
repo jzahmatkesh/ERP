@@ -225,13 +225,6 @@ class Label extends StatelessWidget {
   }
 }
 
-extension LabelStyle on Label{
-  Label isBold() => Label(this.text, style: this.style?.merge(TextStyle(fontWeight: FontWeight.bold)) ?? TextStyle(fontWeight: FontWeight.bold));
-  Label fontSize(double size) => Label(this.text, style: this.style?.merge(TextStyle(fontSize: size)) ?? TextStyle(fontSize: size));
-  Label fontFamily(String name) => Label(this.text, style: this.style?.merge(TextStyle(fontFamily: name)) ?? TextStyle(fontFamily: name));
-  Label fontColor(Color color) => Label(this.text, style: this.style?.merge(TextStyle(color: color)) ?? TextStyle(color: color));
-}
-
 class MultiItem extends StatelessWidget {
   final int value;
   final List<Map<String, dynamic>> options;
@@ -339,5 +332,21 @@ class MenuItem extends StatelessWidget {
   }
 }
 
+extension LabelStyle on Label{
+  Label isBold() => Label(this.text, style: this.style?.merge(TextStyle(fontWeight: FontWeight.bold)) ?? TextStyle(fontWeight: FontWeight.bold));
+  Label fontSize(double size) => Label(this.text, style: this.style?.merge(TextStyle(fontSize: size)) ?? TextStyle(fontSize: size));
+  Label fontFamily(String name) => Label(this.text, style: this.style?.merge(TextStyle(fontFamily: name)) ?? TextStyle(fontFamily: name));
+  Label fontColor(Color color) => Label(this.text, style: this.style?.merge(TextStyle(color: color)) ?? TextStyle(color: color));
+  Expanded expand()=>Expanded(child: this);
+}
+
+extension IntExtension on int{
+  EditBox toEdit(String label, Function(String) onChange)=>EditBox(label: label, defaultvalue: '$this', onChange: onChange);
+  Label toLabel()=>Label('$this');
+}
+extension DoubleExtention on double{
+  EditBox toEdit(String label, Function(String) onChange)=>EditBox(label: label, defaultvalue: '$this', onChange: onChange);
+  Label toLabel()=>Label('$this');
+}
 
 

@@ -172,6 +172,7 @@ class Login extends StatelessWidget {
                             SizedBox(height: 35),
                             EditBox(label: 'username'.tr(), notEmpty: true, onChange: (val)=>_data['username']=val),
                             EditBox(label: 'password'.tr(), notEmpty: true, password: true, onChange: (val)=>_data['password']=val),
+                            
                             SizedBox(height: 25),
                             context.watch<MainProvider>().status == UserStatus.Failed
                               ? Container(
