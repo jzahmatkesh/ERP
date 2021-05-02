@@ -340,13 +340,28 @@ extension LabelStyle on Label{
   Expanded expand()=>Expanded(child: this);
 }
 
+extension WidgetExtension on Widget{
+  Expanded expand({int flex=1}) => Expanded(flex: flex, child: this);
+  Container setpadding({EdgeInsetsGeometry? padding}) => Container(padding: padding ?? EdgeInsets.all(6), child: this);
+  Card card({Color? color}) => Card(child: this, color: color);
+  Widget hMargin({double mrg=6}) => Container(margin: EdgeInsets.symmetric(horizontal: mrg), child: this);
+  Widget vMargin({double mrg=6}) => Container(margin: EdgeInsets.symmetric(vertical: mrg), child: this);
+  Widget height(double height) => Container(height: height, child: this);
+  Widget width(double width) => Container(width: width, child: this);
+  Container color(Color color) => Container(color: color, child: this);
+}
+
 extension IntExtension on int{
   EditBox toEdit(String label, Function(String) onChange)=>EditBox(label: label, defaultvalue: '$this', onChange: onChange);
   Label toLabel()=>Label('$this');
 }
+
 extension DoubleExtention on double{
   EditBox toEdit(String label, Function(String) onChange)=>EditBox(label: label, defaultvalue: '$this', onChange: onChange);
   Label toLabel()=>Label('$this');
 }
 
-
+extension StringExtension on String{
+  Label toLabel()=>Label('$this');
+  EditBox toEdit(String label, Function(String) onChange)=>EditBox(label: label, defaultvalue: '$this', onChange: onChange);
+}
